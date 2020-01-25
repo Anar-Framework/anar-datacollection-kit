@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAllByEnv(String envSlug) {
 		List<User> users = userRepository.findAllByEnvSlug(envSlug);
 		users.forEach(user -> {
-			String odkPass = user.getOdkPassword();
+			String odkPass = user.getPassword();
 			if (odkPass != null && odkPass.length() > 0) {
 				user.setHasOdkPassword(true);
 			}
@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAll_Calc() {
 		List<User> users = userRepository.findAll();
 		users.forEach(user -> {
-			String odkPass = user.getOdkPassword();
+			String odkPass = user.getPassword();
 			if (odkPass != null && odkPass.length() > 0) {
 				user.setHasOdkPassword(true);
 			}
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> optionalObj = userRepository.findById(id);
 		User user = optionalObj.get();
 
-		String odkPass = user.getOdkPassword();
+		String odkPass = user.getPassword();
 		if (odkPass != null && odkPass.length() > 0) {
 			user.setHasOdkPassword(true);
 		}
@@ -186,7 +186,7 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		User user = userRepository.findByUsername(username);
 
-		String odkPass = user.getOdkPassword();
+		String odkPass = user.getPassword();
 		if (odkPass != null && odkPass.length() > 0) {
 			user.setHasOdkPassword(true);
 		}
@@ -335,7 +335,7 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUserOdkPassword(String currentPassword, String newPassword) {
 		User loggedInUser = getLoggedInUser();
 
-		if(currentPassword.equals(loggedInUser.getOdkPassword()) ) {
+		if(currentPassword.equals(loggedInUser.getPassword()) ) {
 			loggedInUser.setOdkPassword(newPassword);
 			userRepository.save(loggedInUser);
 			return true;
